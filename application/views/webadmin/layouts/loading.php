@@ -1,0 +1,1 @@
+<div class="card card-body"><div class="d-flex align-items-center"><strong style="font-size:12px">Loading...</strong><div class="spinner-border ms-auto" role="status" aria-hidden="true"></div></div></div>

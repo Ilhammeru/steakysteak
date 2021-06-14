@@ -1,0 +1,228 @@
+
+<main>
+    <nav class="nav-extended indigo-darken-5">
+        <div class="nav-content">
+            <ul class="tabs tabs-transparent">
+                <li class="tab" data-id="1">
+                    <a class="active modal-trigger" href="#home">
+                        <span class="tab-badge badge" id="badge-1">
+                            <!-- Home -->
+                            <img class="i-navbar" src="<?=base_url();?>assets/vendor/ans-icons/home.svg">
+                        </span>
+                    </a>
+                </li>
+                <li class="tab" data-id="2">
+                    <a href="#lomba" class="modal-trigger">
+                        <span class="tab-badge" id="badge-2">
+                            <!-- Lomba -->
+                            <img class="i-navbar" src="<?=base_url();?>assets/vendor/ans-icons/competition.svg">
+                        </span>
+                    </a>
+                </li>
+                <li class="tab" id="tab-edukasi" data-id="3">
+                    <a href="#edukasi" class="modal-trigger">
+                        <span class="tab-badge" id="badge-3">
+                            <!-- Edukasi -->
+                            <img class="i-navbar" src="<?=base_url();?>assets/vendor/ans-icons/education.svg">
+                        </span>
+                    </a>
+                </li>
+                <li class="tab" id="tab-belanja" data-id="4">
+                    <a href="#belanja" class="modal-trigger">
+                        <span class="tab-badge" id="badge-4">
+                            <!-- Belanja -->
+                            <img class="i-navbar" src="<?=base_url();?>assets/vendor/ans-icons/shop.svg">
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <script>
+
+        $(document).ready(function(){
+            
+            $('.tabs').tabs();
+            $('.dropdown-trigger').dropdown();
+            $('.collapsible').collapsible({
+                onOpenEnd: function (elem) {
+                    var key = $(elem).data('id');
+                    collap_open(key);
+                },
+                onCloseEnd: function (elem) {
+                    collap_close();
+                }
+            });
+            $('.indicator').removeClass('indicator');
+
+            init_modal_belanja();
+            init_modal_lomba();
+            init_modal_edukasi();
+            init_modal_home();
+            init_modal_something_new();
+            init_modal_checkout();
+            init_modal_success_checkout();
+
+            $('#home').modal('open');
+
+            $('.history-order').hide();
+        });
+
+        function collap_open(key) {
+            $('.i-collap').html('keyboard_arrow_right');
+            $('#i-collap-' + key).html('keyboard_arrow_down');
+        }
+
+        function collap_close() {
+            $('.i-collap').html('keyboard_arrow_right');
+        }
+
+        $('.tab').click( function () {
+
+            var id = $(this).data('id');
+
+            $('.tab-badge').removeClass('badge');
+            $('#badge-' + id).addClass('badge');
+            
+            $('#belanja').modal('close');
+            $('#lomba').modal('close');
+            $('#edukasi').modal('close');
+            $('#home').modal('close');
+            $('#something-new-readmore').modal('close');
+
+            $('#cart').hide();
+        
+        });
+
+        function init_modal_home() {
+
+            $('#home').modal({
+                opacity: 0.5,
+                inDuration: 200,
+                outDuration: 200,
+                ready: undefined,
+                complete: undefined,
+                dismissible: true,
+                startingTop: '14%',
+                endingTop: '70%'
+            });
+        }
+        
+        function init_modal_belanja() {
+
+            $('#belanja').modal({
+                opacity: 0.5,
+                inDuration: 200,
+                outDuration: 200,
+                ready: undefined,
+                complete: undefined,
+                dismissible: true,
+                startingTop: '14%',
+                endingTop: '70%'
+            });
+        }
+
+        function init_modal_lomba() {
+
+            $('#lomba').modal({
+                opacity: 0.5,
+                inDuration: 200,
+                outDuration: 200,
+                ready: undefined,
+                complete: undefined,
+                dismissible: true,
+                startingTop: '14%',
+                endingTop: '70%'
+            });
+        }
+
+        function init_modal_edukasi() {
+
+            $('#edukasi').modal({
+                opacity: 0.5,
+                inDuration: 200,
+                outDuration: 200,
+                ready: undefined,
+                complete: undefined,
+                dismissible: true,
+                startingTop: '14%',
+                endingTop: '70%'
+            });
+        }
+
+        function init_modal_something_new() {
+
+            $('#something-new-readmore').modal({
+                opacity: 0.5,
+                inDuration: 200,
+                outDuration: 200,
+                ready: undefined,
+                complete: undefined,
+                dismissible: true,
+                startingTop: '14%',
+                endingTop: '70%'
+            });
+        }
+
+        function init_modal_checkout() {
+
+            $('#checkout').modal({
+                opacity: 0.5,
+                inDuration: 200,
+                outDuration: 200,
+                ready: undefined,
+                complete: undefined,
+                dismissible: false,
+                startingTop: '14%',
+                endingTop: '70%',
+                onOpenStart: function () {
+                    $('.modal-overlay').removeClass('modal-overlay').addClass('modal-overlay-2');
+                    $('#step2').hide();
+                    $('#step3').hide();
+                    $('#cart').hide();
+                },
+                onOpenEnd: function () {
+                    $('.modal-overlay').removeClass('modal-overlay').addClass('modal-overlay-2');
+                },
+                onCloseStart: function () {
+                    $('.modal-overlay-2').removeClass('modal-overlay-2').addClass('modal-overlay');
+                },
+                onCloseEnd: function () {
+                    $('.modal-overlay-2').removeClass('modal-overlay-2').addClass('modal-overlay');
+                    $('#cart').show();
+                }
+            });
+        }
+
+        function init_modal_success_checkout() {
+
+            $('#success-checkout').modal({
+                opacity: 0.5,
+                inDuration: 200,
+                outDuration: 200,
+                ready: undefined,
+                complete: undefined,
+                dismissible: false,
+                startingTop: '14%',
+                endingTop: '70%',
+                onOpenStart: function () {
+                    $('#checkout').modal('close');
+                    $('#cart').hide();
+                    $('.modal-overlay').removeClass('modal-overlay').addClass('modal-overlay-2');
+                },
+                onOpenEnd: function () {
+                    $('#cart').hide();
+                    $('.modal-overlay').removeClass('modal-overlay').addClass('modal-overlay-2');
+                },
+                onCloseStart: function () {
+                    $('.modal-overlay-2').removeClass('modal-overlay-2').addClass('modal-overlay');
+                },
+                onCloseEnd: function () {
+                    $('.modal-overlay-2').removeClass('modal-overlay-2').addClass('modal-overlay');
+                    location.href = "<?=site_url('dashboard');?>";
+                }
+            });
+        }
+       
+    </script>

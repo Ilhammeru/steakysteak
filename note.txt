@@ -1,0 +1,134 @@
+Color Library
+
+- Indigo
+    #002d59
+- Red
+    #ee2a24
+- Grey 
+    #b3b3b3
+- border
+    #e5e5e5
+- box, card, panel
+    #eaeaea
+- box text
+    #616161
+- detail
+    #424242
+- green
+
+Session saved 
+----------------
+'id_mitra'		=> id mitra
+'uid_mitra'		=> uid mitra 3 nomor terakhir
+'id_franchise'	=> id franchise
+'addon_for'		=> addon for
+'mitra_name'	=> nama mitra
+'date_join'		=> tanggal join
+'address'		=> alamat mitra
+'phone'			=> phone
+'point'			=> point
+'total_point'   => total point didapat
+'dur'			=> durasi join
+'dept_id'		=> pengaturan pt
+'season_level'	=> level yang didapat (menu edukasi)
+'username' 		=> username login
+'cart'          => keranjang belanja
+'cart_pe'       => keranjang tukar poin
+'total_dpp'     => total belanja
+'total_ppn'     => total ppn
+'total_amount'  => belanja + ppn
+'total_we'      => total berat belanja
+'total_we_pe'   => total berat tukar poin
+'total_weight'  => total berat belanja + tukar poin
+'mitra_address_id' => id alamat kirim default
+'id_travel'     => ekspedisi pengiriman
+'total_ongkir' => biaya ongkir
+'point_used' => point exchange yang digunakan
+    
+
+
+Table
+---------------
+favo
+---------------
+id 
+id_mitra int
+detail json ()
+
+CREATE TABLE favo (
+    id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    id_mitra int(11),
+    detail json
+);
+
+CREATE INDEX favo_id_idx ON favo (id);
+CREATE INDEX favo_id_mitra_idx ON favo (id_mitra);
+
+CREATE TABLE point_exchange (
+    id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    product_id varchar(10),
+    point int(11),
+    qty int(11),
+    unit varchar(15),
+    is_active tinyint(1) DEFAULT 1
+);
+
+CREATE INDEX point_exchange_id_idx ON point_exchange(id);
+CREATE INDEX point_exchange_product_id_idx ON point_exchange(product_id);
+
+INSERT INTO point_exchange VALUES
+(1, 'v6', 20, 10, 'sachet', 1),
+(2, 'v9', 15, 10, 'sachet', 1),
+(3, 'l55', 100, 50, 'pcs', 1),
+(4, 'l66', 80, 50, 'pcs', 1);
+
+Varian
+
+6 10
+9 10
+
+Addon
+215 50
+216 50
+
+ALTER TABLE ansena_mitra
+ADD point int(11) DEFAULT 0;
+
+ALTER TABLE ansena_mitra
+ADD total_point int(11) DEFAULT 0;
+
+CREATE TABLE online_order (
+    id int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    mitra_id int(11),
+    brand_id int(11),
+    detail json,
+    bobot int(11),
+    total_order int(11),
+    ongkir int(11),
+    ppn int(11),
+    date_order date,
+    date_trf date,
+    date_approved date,
+    date_packing date,
+    date_kirim date,
+    date_diterima date,
+    add_poin int(11),
+    id_travel int(11),
+    mitra_address_id int(11),
+    id_bank int(11),
+    point_used int(11),
+    created_time datetime
+);
+
+CREATE INDEX online_order_id_idx ON online_order (id);
+CREATE INDEX online_order_mitra_id_idx ON online_order (mitra_id);
+CREATE INDEX online_order_brand_id_idx ON online_order (brand_id);
+CREATE INDEX online_order_id_travel_idx ON online_order (id_travel);
+CREATE INDEX online_order_id_bank_idx ON online_order (id_bank);
+
+ALTER TABLE online_order 
+ADD date_batal date AFTER date_diterima,
+ADD alasan_batal varchar(255) AFTER date_batal;
+
+ALTER TABLE online_order
+ADD invoice_number varchar(50) AFTER id;
